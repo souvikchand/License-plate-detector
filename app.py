@@ -4,6 +4,7 @@ import numpy as np
 from PIL import Image
 from ultralytics import YOLO
 import os
+import shutil
 
 st.title("Licence plate Detector")
 
@@ -111,6 +112,7 @@ def process_media(input_path, output_path):
 uploaded_file = st.file_uploader("Upload an image or video", type=["jpg", "jpeg", "png", "bmp", "mp4", "avi", "mov", "mkv"])
 
 if uploaded_file is not None:
+    os.makedirs("temp", exist_ok=True)  # exist_ok=True prevents error if directory exists
     input_path = os.path.join("temp", uploaded_file.name)
     output_path = os.path.join("temp", f"output_{uploaded_file.name}")
     try:
@@ -127,3 +129,5 @@ if uploaded_file is not None:
                 st.image(result_path)
     except Exception as e:
         st.error(f"Error uploading or processing file: {e}")
+    finally:
+        shutil.rmtree("temp", ignore_errors=True)
