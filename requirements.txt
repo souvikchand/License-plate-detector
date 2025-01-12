@@ -3,5 +3,4 @@ pandas
 matplotlib
 streamlit
 opencv-python-headless
-opencv-python
 ultralytics
